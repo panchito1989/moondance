@@ -32,7 +32,12 @@ export async function updateSession(request: NextRequest) {
   if (!user && request.nextUrl.pathname.startsWith("/admin")) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
-    return NextResponse.redirect(url);
+    const redirectResponse = NextResponse.redirect(url);
+    // Conservar las cookies de sesión refrescadas en el redirect.
+    supabaseResponse.cookies.getAll().forEach((cookie) =>
+      redirectResponse.cookies.set(cookie.name, cookie.value)
+    );
+    return redirectResponse;
   }
 
   return supabaseResponse;

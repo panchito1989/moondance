@@ -35,8 +35,8 @@ create table public.students (
 -- Conceptos de pago (configurables por la dueña)
 create table public.payment_concepts (
   id uuid primary key default gen_random_uuid(),
-  nombre text not null,
-  precio numeric(10,2) not null default 0,
+  nombre text not null unique,
+  precio numeric(10,2) not null default 0 check (precio >= 0),
   tipo concept_type not null default 'otro',
   activo boolean not null default true,
   created_at timestamptz not null default now()
@@ -47,11 +47,11 @@ create table public.payments (
   id uuid primary key default gen_random_uuid(),
   student_id uuid not null references public.students(id) on delete cascade,
   concept_id uuid not null references public.payment_concepts(id),
-  monto numeric(10,2) not null,
+  monto numeric(10,2) not null check (monto >= 0),
   fecha date not null default current_date,
   metodo payment_method not null default 'efectivo',
   nota text,
-  registrado_por uuid references public.profiles(id),
+  registrado_por uuid references public.profiles(id) default auth.uid(),
   created_at timestamptz not null default now()
 );
 
@@ -62,7 +62,7 @@ create table public.attendance (
   fecha date not null default current_date,
   presente boolean not null default true,
   payment_id uuid references public.payments(id) on delete set null,
-  registrado_por uuid references public.profiles(id),
+  registrado_por uuid references public.profiles(id) default auth.uid(),
   created_at timestamptz not null default now(),
   unique (student_id, fecha)
 );
