@@ -37,6 +37,9 @@ export default async function Home() {
             <a href="#eventos" className="hover:text-fuchsia-400 hidden sm:inline">
               Eventos
             </a>
+            <a href="#galeria" className="hover:text-fuchsia-400 hidden sm:inline">
+              Galería
+            </a>
             <a href="#contacto" className="hover:text-fuchsia-400 hidden sm:inline">
               Contacto
             </a>
@@ -198,6 +201,41 @@ export default async function Home() {
         </section>
       )}
 
+      {/* Galería */}
+      <section id="galeria" className="px-6 py-20 max-w-5xl mx-auto">
+        <h2 className="text-3xl font-bold mb-2 text-center">
+          Nuestra <span className="text-lime-400">galería</span>
+        </h2>
+        <p className="text-gray-400 text-center mb-10 text-sm">
+          Momentos que brillan. ✨{" "}
+          <span className="text-gray-600">(fotos de demostración)</span>
+        </p>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          {[
+            "/galeria/g1.jpg",
+            "/galeria/g2.jpg",
+            "/galeria/g3.jpg",
+            "/galeria/g4.jpg",
+            "/galeria/g5.jpg",
+            "/galeria/g6.jpg",
+          ].map((src, i) => (
+            <div
+              key={src}
+              className="relative aspect-square rounded-2xl overflow-hidden border border-zinc-800 hover:border-fuchsia-500/60 transition group"
+            >
+              <Image
+                src={src}
+                alt={`Galería MoonDance ${i + 1}`}
+                fill
+                sizes="(max-width: 640px) 50vw, 33vw"
+                className="object-cover group-hover:scale-105 transition duration-300"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Por qué */}
       <section className="px-6 py-20 bg-zinc-950/60 border-y border-zinc-900">
         <div className="max-w-4xl mx-auto">
@@ -314,8 +352,10 @@ export default async function Home() {
               © {new Date().getFullYear()} MoonDance Studio · Hecho con 💜
             </p>
             <p className="text-[10px] text-gray-700">
-              Fotos: Lambtron, Tommy Wong, Andrey Trubin, Joe Mabel (CC) —
-              Wikimedia Commons
+              Fotos de demostración:{" "}
+              <Link href="/creditos" className="underline hover:text-gray-500">
+                créditos
+              </Link>
             </p>
           </div>
         </div>
