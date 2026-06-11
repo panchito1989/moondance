@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { createClient } from "@/lib/supabase/server";
 import { formatMXN } from "@/lib/money";
 
@@ -97,31 +98,56 @@ export default async function Home() {
         <p className="text-gray-400 text-center mb-10">
           Pregunta por horarios y grupos disponibles para tu edad.
         </p>
-        <div className="grid sm:grid-cols-3 gap-5">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {[
+            {
+              t: "Baby Ballet",
+              d: "Primeros pasos para las más pequeñas: ritmo, coordinación y diversión.",
+              c: "border-fuchsia-500/40 shadow-[0_0_18px_rgba(217,70,239,0.18)]",
+              e: "🎀",
+              img: "/clases/babyballet.jpg",
+            },
             {
               t: "Ballet",
               d: "Técnica clásica desde nivel inicial. Postura, gracia y disciplina.",
-              c: "border-fuchsia-500/40 shadow-[0_0_18px_rgba(217,70,239,0.18)]",
+              c: "border-purple-400/40 shadow-[0_0_18px_rgba(168,85,247,0.18)]",
               e: "🩰",
+              img: "/clases/ballet.jpg",
+            },
+            {
+              t: "K-Pop",
+              d: "Coreografías de tus grupos favoritos, energía idol y mucho estilo.",
+              c: "border-cyan-400/40 shadow-[0_0_18px_rgba(34,211,238,0.18)]",
+              e: "🎤",
+              img: "/clases/kpop.jpg",
             },
             {
               t: "Jazz / Moderno",
               d: "Energía, estilo y coreografías actuales para brillar en el escenario.",
-              c: "border-cyan-400/40 shadow-[0_0_18px_rgba(34,211,238,0.18)]",
-              e: "✨",
-            },
-            {
-              t: "Concursos y festivales",
-              d: "Preparación para presentaciones, vestuario y experiencia escénica real.",
               c: "border-lime-400/40 shadow-[0_0_18px_rgba(163,230,53,0.18)]",
-              e: "🏆",
+              e: "✨",
+              img: "/clases/jazz.jpg",
             },
           ].map((x) => (
-            <div key={x.t} className={`rounded-2xl border bg-zinc-950 p-6 ${x.c}`}>
-              <div className="text-3xl mb-3">{x.e}</div>
-              <h3 className="font-bold text-lg">{x.t}</h3>
-              <p className="mt-2 text-sm text-gray-400">{x.d}</p>
+            <div
+              key={x.t}
+              className={`rounded-2xl border bg-zinc-950 overflow-hidden ${x.c}`}
+            >
+              <div className="relative h-44 w-full">
+                <Image
+                  src={x.img}
+                  alt={`Clase de ${x.t}`}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent" />
+                <div className="absolute bottom-2 left-3 text-2xl">{x.e}</div>
+              </div>
+              <div className="p-5">
+                <h3 className="font-bold text-lg">{x.t}</h3>
+                <p className="mt-2 text-sm text-gray-400">{x.d}</p>
+              </div>
             </div>
           ))}
         </div>
@@ -225,6 +251,10 @@ export default async function Home() {
           <Link href="/login" className="hover:text-gray-400">
             Acceso staff
           </Link>
+        </p>
+        <p className="mt-4 text-[10px] text-gray-700">
+          Fotos: Tommy Wong (CC BY 2.0) · Andrey Trubin (CC BY 4.0) · Joe Mabel
+          (CC BY-SA 3.0) — Wikimedia Commons
         </p>
       </footer>
     </main>

@@ -21,7 +21,7 @@ export default async function ConceptosPage() {
   const lista = concepts ?? [];
 
   return (
-    <div className="max-w-3xl">
+    <div className="max-w-5xl">
       <h1 className="text-2xl font-bold mb-1">Conceptos de pago</h1>
       <p className="text-gray-500 mb-6">
         {esDuena
@@ -32,7 +32,7 @@ export default async function ConceptosPage() {
       {esDuena && (
         <form
           action={createConcept}
-          className="flex flex-wrap gap-2 items-end mb-6 p-4 rounded-xl border border-gray-200 bg-gray-50"
+          className="flex flex-wrap gap-2 items-end mb-6 p-5 rounded-xl border border-gray-200 bg-white shadow-sm"
         >
           <label className="flex flex-col gap-1 text-sm">
             Nombre
@@ -79,7 +79,7 @@ export default async function ConceptosPage() {
           esDuena ? (
             <div
               key={c.id}
-              className="flex flex-wrap items-end gap-2 p-3 rounded-xl border border-gray-200"
+              className="flex flex-wrap items-end gap-2 p-4 rounded-xl border border-gray-200 bg-white"
             >
               <form
                 action={updateConcept}
@@ -142,7 +142,7 @@ export default async function ConceptosPage() {
           ) : (
             <div
               key={c.id}
-              className="flex items-center justify-between p-3 rounded-xl border border-gray-200"
+              className="flex items-center justify-between p-4 rounded-xl border border-gray-200 bg-white"
             >
               <span>
                 {c.nombre}{" "}

@@ -84,24 +84,24 @@ export default async function ReportesPage() {
   );
 
   return (
-    <div className="max-w-3xl">
+    <div className="max-w-5xl">
       <h1 className="text-2xl font-bold mb-1">Reportes</h1>
       <p className="text-gray-500 mb-6">Resumen del estudio.</p>
 
       <div className="grid sm:grid-cols-4 gap-3 mb-8">
-        <div className="rounded-xl border border-gray-200 p-4">
+        <div className="rounded-xl border border-gray-200 bg-white p-5">
           <div className="text-2xl font-bold">{formatMXN(totalHoy)}</div>
           <div className="text-xs text-gray-500">Ingresos de hoy</div>
         </div>
-        <div className="rounded-xl border border-gray-200 p-4">
+        <div className="rounded-xl border border-gray-200 bg-white p-5">
           <div className="text-2xl font-bold">{formatMXN(totalMes)}</div>
           <div className="text-xs text-gray-500">Ingresos del mes</div>
         </div>
-        <div className="rounded-xl border border-gray-200 p-4">
+        <div className="rounded-xl border border-gray-200 bg-white p-5">
           <div className="text-2xl font-bold">{asistHoy ?? 0}</div>
           <div className="text-xs text-gray-500">Asistencias hoy</div>
         </div>
-        <div className="rounded-xl border border-gray-200 p-4">
+        <div className="rounded-xl border border-gray-200 bg-white p-5">
           <div className="text-2xl font-bold">{asistMes ?? 0}</div>
           <div className="text-xs text-gray-500">Asistencias del mes</div>
         </div>
@@ -117,7 +117,7 @@ export default async function ReportesPage() {
           .map(([nombre, v]) => (
             <div
               key={nombre}
-              className="flex items-center justify-between p-3 rounded-xl border border-gray-200 text-sm"
+              className="flex items-center justify-between p-4 rounded-xl border border-gray-200 bg-white text-sm"
             >
               <span>
                 {nombre} <span className="text-gray-400">×{v.n}</span>

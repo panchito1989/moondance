@@ -60,7 +60,7 @@ export default async function EstadoCuentaPage({
     : (student.groups as { nombre: string } | null)?.nombre;
 
   return (
-    <div className="max-w-3xl">
+    <div className="max-w-5xl">
       <Link href="/admin/alumnas" className="text-sm text-gray-500 hover:text-black">
         ← Alumnas
       </Link>
@@ -72,14 +72,14 @@ export default async function EstadoCuentaPage({
         {!student.activa && " · (inactiva)"}
       </p>
 
-      <div className="rounded-lg bg-gray-50 border border-gray-200 px-4 py-2 inline-block mb-6 text-sm">
+      <div className="rounded-lg bg-white border border-gray-200 px-4 py-2 inline-block mb-6 text-sm">
         Total pagado en {anio}: <b>{formatMXN(totalAnio)}</b>
       </div>
 
       <h2 className="font-semibold mb-2">Registrar pago</h2>
       <form
         action={registerPayment}
-        className="grid sm:grid-cols-2 gap-2 mb-6 p-4 rounded-xl border border-gray-200 bg-gray-50"
+        className="grid sm:grid-cols-2 gap-2 mb-6 p-5 rounded-xl border border-gray-200 bg-white shadow-sm"
       >
         <input type="hidden" name="student_id" value={student.id} />
         <label className="flex flex-col gap-1 text-sm">
@@ -153,7 +153,7 @@ export default async function EstadoCuentaPage({
           return (
             <div
               key={p.id}
-              className="flex items-center justify-between gap-3 p-3 rounded-xl border border-gray-200 text-sm"
+              className="flex items-center justify-between gap-3 p-4 rounded-xl border border-gray-200 bg-white text-sm"
             >
               <div>
                 <span className="font-medium">{concepto ?? "Concepto"}</span>{" "}

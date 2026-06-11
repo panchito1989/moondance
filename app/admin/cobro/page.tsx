@@ -57,7 +57,7 @@ export default async function CobroPage({
   const totalCobrado = cobrados * precioClase;
 
   return (
-    <div className="max-w-3xl">
+    <div className="max-w-5xl">
       <h1 className="text-2xl font-bold mb-1">Cobro &amp; Asistencia</h1>
       <p className="text-gray-500 mb-4">
         Cobra la clase y marca asistencia en un toque.
@@ -94,10 +94,10 @@ export default async function CobroPage({
       </form>
 
       <div className="flex flex-wrap gap-3 mb-4 text-sm">
-        <div className="rounded-lg bg-gray-50 border border-gray-200 px-4 py-2">
+        <div className="rounded-lg bg-white border border-gray-200 px-4 py-2">
           Presentes: <b>{presentes}</b>/{lista.length}
         </div>
-        <div className="rounded-lg bg-gray-50 border border-gray-200 px-4 py-2">
+        <div className="rounded-lg bg-white border border-gray-200 px-4 py-2">
           Cobrado: <b>{formatMXN(totalCobrado)}</b>
         </div>
         {precioClase === 0 && (
@@ -120,7 +120,7 @@ export default async function CobroPage({
           return (
             <div
               key={s.id}
-              className="flex items-center justify-between gap-3 p-3 rounded-xl border border-gray-200"
+              className="flex items-center justify-between gap-3 p-4 rounded-xl border border-gray-200 bg-white"
             >
               <div>
                 <div className="font-medium">{s.nombre}</div>

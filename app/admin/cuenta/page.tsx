@@ -20,7 +20,7 @@ export default async function CuentaPage({
     : { data: null };
 
   return (
-    <div className="max-w-md">
+    <div className="max-w-lg">
       <h1 className="text-2xl font-bold mb-1">Mi cuenta</h1>
       <p className="text-gray-500 mb-6">
         {user?.email} · <span className="capitalize">{profile?.rol}</span>

@@ -11,13 +11,13 @@ export default async function GruposPage() {
   const lista = groups ?? [];
 
   return (
-    <div className="max-w-3xl">
+    <div className="max-w-5xl">
       <h1 className="text-2xl font-bold mb-1">Grupos / Clases</h1>
       <p className="text-gray-500 mb-6">Organiza a las alumnas por grupo y horario.</p>
 
       <form
         action={createGroup}
-        className="flex flex-wrap gap-2 items-end mb-6 p-4 rounded-xl border border-gray-200 bg-gray-50"
+        className="flex flex-wrap gap-2 items-end mb-6 p-5 rounded-xl border border-gray-200 bg-white shadow-sm"
       >
         <label className="flex flex-col gap-1 text-sm">
           Nombre
@@ -50,7 +50,7 @@ export default async function GruposPage() {
         {lista.map((g) => (
           <div
             key={g.id}
-            className="flex flex-wrap items-end gap-2 p-3 rounded-xl border border-gray-200"
+            className="flex flex-wrap items-end gap-2 p-4 rounded-xl border border-gray-200 bg-white"
           >
             <form
               action={updateGroup}

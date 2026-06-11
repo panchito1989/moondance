@@ -20,13 +20,13 @@ export default async function AlumnasPage() {
   const lista = students ?? [];
 
   return (
-    <div className="max-w-4xl">
+    <div className="max-w-6xl">
       <h1 className="text-2xl font-bold mb-1">Alumnas</h1>
       <p className="text-gray-500 mb-6">Alta y edición de alumnas.</p>
 
       <form
         action={createStudent}
-        className="grid sm:grid-cols-2 gap-2 mb-6 p-4 rounded-xl border border-gray-200 bg-gray-50"
+        className="grid sm:grid-cols-2 gap-2 mb-6 p-5 rounded-xl border border-gray-200 bg-white shadow-sm"
       >
         <input
           name="nombre"
@@ -73,7 +73,7 @@ export default async function AlumnasPage() {
           </p>
         )}
         {lista.map((s) => (
-          <div key={s.id} className="p-3 rounded-xl border border-gray-200">
+          <div key={s.id} className="p-4 rounded-xl border border-gray-200 bg-white">
             <form action={updateStudent} className="grid sm:grid-cols-2 gap-2">
               <input type="hidden" name="id" value={s.id} />
               <input

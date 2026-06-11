@@ -20,7 +20,7 @@ export default async function EventosPage() {
   const lista = events ?? [];
 
   return (
-    <div className="max-w-3xl">
+    <div className="max-w-5xl">
       <h1 className="text-2xl font-bold mb-1">Eventos</h1>
       <p className="text-gray-500 mb-6">
         Crea un evento y compártelo por WhatsApp con el flyer.
@@ -29,7 +29,7 @@ export default async function EventosPage() {
       {esDuena && (
         <form
           action={createEvent}
-          className="grid sm:grid-cols-2 gap-2 mb-6 p-4 rounded-xl border border-gray-200 bg-gray-50"
+          className="grid sm:grid-cols-2 gap-2 mb-6 p-5 rounded-xl border border-gray-200 bg-white shadow-sm"
         >
           <input
             name="titulo"
@@ -83,7 +83,7 @@ export default async function EventosPage() {
               `\nMás info: ${link}`
           );
           return (
-            <div key={e.id} className="p-4 rounded-xl border border-gray-200">
+            <div key={e.id} className="p-5 rounded-xl border border-gray-200 bg-white">
               <div className="flex items-start justify-between gap-3 flex-wrap">
                 <div>
                   <h3 className="font-bold">
