@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { createStudent, updateStudent, deleteStudent } from "./actions";
 
@@ -121,12 +122,20 @@ export default async function AlumnasPage() {
                 </button>
               </div>
             </form>
-            <form action={deleteStudent} className="flex justify-end mt-2">
-              <input type="hidden" name="id" value={s.id} />
-              <button className="rounded-lg border border-red-200 text-red-600 px-3 py-1.5 text-sm hover:bg-red-50">
-                Eliminar
-              </button>
-            </form>
+            <div className="flex justify-between items-center mt-2">
+              <Link
+                href={`/admin/alumnas/${s.id}`}
+                className="text-sm text-blue-600 hover:underline"
+              >
+                Estado de cuenta →
+              </Link>
+              <form action={deleteStudent}>
+                <input type="hidden" name="id" value={s.id} />
+                <button className="rounded-lg border border-red-200 text-red-600 px-3 py-1.5 text-sm hover:bg-red-50">
+                  Eliminar
+                </button>
+              </form>
+            </div>
           </div>
         ))}
       </div>

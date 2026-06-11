@@ -47,9 +47,9 @@ export default async function AdminLayout({
           </nav>
         </div>
         <div className="flex items-center gap-4 text-sm">
-          <span className="text-gray-600">
-            {nombre} · <span className="capitalize">{rol}</span>
-          </span>
+          <Link href="/admin/cuenta" className="text-gray-600 hover:text-black">
+            {nombre} · <span className="capitalize">{rol}</span> ⚙
+          </Link>
           <form action={signOut}>
             <button className="rounded-lg border border-gray-300 px-3 py-1.5 hover:bg-gray-50">
               Cerrar sesión
