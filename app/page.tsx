@@ -30,7 +30,7 @@ export default async function Home({
   const { invitacion } = await searchParams;
   const supabase = await createClient();
   const today = new Date().toISOString().slice(0, 10);
-  const [{ data: events }, { data: fotos }, { data: logros }] =
+  const [{ data: events }, { data: fotos, count: totalFotos }, { data: logros }] =
     await Promise.all([
       supabase
         .from("events")
@@ -41,7 +41,7 @@ export default async function Home({
         .limit(3),
       supabase
         .from("gallery_photos")
-        .select("url, titulo")
+        .select("url, titulo", { count: "exact" })
         .order("created_at", { ascending: false })
         .limit(9),
       supabase
@@ -250,6 +250,16 @@ export default async function Home({
           )}
         </p>
         <GaleriaLightbox fotos={galeria} />
+        {(totalFotos ?? 0) > 9 && (
+          <div className="text-center mt-8">
+            <Link
+              href="/galeria"
+              className="inline-block rounded-xl border border-lime-400/50 px-8 py-3 font-semibold text-lime-300 hover:bg-lime-400/10 transition"
+            >
+              Ver toda la galería ({totalFotos} fotos) →
+            </Link>
+          </div>
+        )}
       </section>
 
       {/* Logros y reconocimientos */}
