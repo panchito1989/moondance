@@ -43,32 +43,37 @@ export default async function AdminLayout({
   return (
     <div className="min-h-screen md:flex bg-black">
       {/* Sidebar (escritorio) */}
-      <aside className="hidden md:flex md:flex-col w-64 shrink-0 border-r border-zinc-800 bg-zinc-900 min-h-screen sticky top-0 max-h-screen">
-        <Link href="/admin" className="px-6 py-5 font-bold text-lg border-b border-zinc-800">
+      <aside className="hidden md:flex md:flex-col w-60 shrink-0 border-r border-zinc-800 bg-zinc-900 h-screen sticky top-0">
+        <Link
+          href="/admin"
+          className="px-5 py-4 font-bold border-b border-zinc-800 shrink-0"
+        >
           MoonDance <span className="text-fuchsia-600">Studio</span> 🌙
         </Link>
-        <nav className="flex-1 px-3 py-4 flex flex-col gap-1">
+        <nav className="flex-1 min-h-0 overflow-y-auto px-3 py-3 flex flex-col gap-0.5">
           {nav.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="flex items-center gap-3 rounded-xl px-4 py-2.5 text-[15px] text-gray-300 hover:bg-fuchsia-500/10 hover:text-fuchsia-400 transition"
+              className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-gray-300 hover:bg-fuchsia-500/10 hover:text-fuchsia-400 transition"
             >
-              <span className="text-lg">{item.icon}</span>
+              <span>{item.icon}</span>
               {item.label}
             </Link>
           ))}
         </nav>
-        <div className="border-t border-zinc-800 p-4">
+        <div className="border-t border-zinc-800 p-3 shrink-0">
           <Link
             href="/admin/cuenta"
-            className="block rounded-xl px-4 py-2 hover:bg-zinc-800"
+            className="block rounded-lg px-3 py-1.5 hover:bg-zinc-800"
           >
             <div className="font-medium text-sm truncate">{nombre}</div>
-            <div className="text-xs text-gray-400 capitalize">{rol} · Mi cuenta ⚙</div>
+            <div className="text-xs text-gray-400 capitalize">
+              {rol} · Mi cuenta ⚙
+            </div>
           </Link>
-          <form action={signOut} className="mt-2">
-            <button className="w-full rounded-xl border border-zinc-800 px-4 py-2 text-sm text-gray-300 hover:bg-zinc-800">
+          <form action={signOut} className="mt-1.5">
+            <button className="w-full rounded-lg border border-zinc-800 px-3 py-1.5 text-sm text-gray-300 hover:bg-zinc-800">
               Cerrar sesión
             </button>
           </form>
