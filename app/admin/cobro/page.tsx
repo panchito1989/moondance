@@ -17,7 +17,7 @@ export default async function CobroPage({
     await Promise.all([
       supabase
         .from("students")
-        .select("id, nombre, group_id")
+        .select("id, nombre, student_groups(group_id)")
         .eq("activa", true)
         .order("nombre"),
       supabase
@@ -40,16 +40,26 @@ export default async function CobroPage({
     ]);
 
   const grupos = groups ?? [];
-  const grupoNombre = (id: string | null) =>
-    grupos.find((g) => g.id === id)?.nombre ?? "";
 
   const asisMap: Record<string, { presente: boolean; payment_id: string | null }> =
     {};
   for (const a of asis ?? [])
     asisMap[a.student_id] = { presente: a.presente, payment_id: a.payment_id };
 
-  let lista = students ?? [];
-  if (grupo) lista = lista.filter((s) => s.group_id === grupo);
+  let lista = (students ?? []).map((s) => {
+    const ids = (s.student_groups ?? []).map(
+      (sg: { group_id: string }) => sg.group_id
+    );
+    return {
+      ...s,
+      groupIds: ids,
+      groupNames: ids
+        .map((id: string) => grupos.find((g) => g.id === id)?.nombre)
+        .filter(Boolean)
+        .join(" · "),
+    };
+  });
+  if (grupo) lista = lista.filter((s) => s.groupIds.includes(grupo));
 
   const precioClase = clase ? Number(clase.precio) : 0;
   const presentes = lista.filter((s) => asisMap[s.id]?.presente).length;
@@ -124,10 +134,8 @@ export default async function CobroPage({
             >
               <div>
                 <div className="font-medium">{s.nombre}</div>
-                {grupoNombre(s.group_id) && (
-                  <div className="text-xs text-gray-500">
-                    {grupoNombre(s.group_id)}
-                  </div>
+                {s.groupNames && (
+                  <div className="text-xs text-gray-500">{s.groupNames}</div>
                 )}
               </div>
               <div className="flex items-center gap-2">

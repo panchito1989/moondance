@@ -18,7 +18,7 @@ export default async function EstadoCuentaPage({
     await Promise.all([
       supabase
         .from("students")
-        .select("id, nombre, tutor, telefono, activa, groups(nombre)")
+        .select("id, nombre, tutor, telefono, activa, student_groups(groups(nombre))")
         .eq("id", id)
         .maybeSingle(),
       supabase
@@ -55,9 +55,14 @@ export default async function EstadoCuentaPage({
   const totalAnio = lista
     .filter((p) => String(p.fecha).startsWith(String(anio)))
     .reduce((sum, p) => sum + Number(p.monto), 0);
-  const grupoNombre = Array.isArray(student.groups)
-    ? null
-    : (student.groups as { nombre: string } | null)?.nombre;
+  const grupoNombre =
+    (student.student_groups ?? [])
+      .map((sg: { groups: { nombre: string } | { nombre: string }[] | null }) => {
+        const g = sg.groups;
+        return Array.isArray(g) ? g[0]?.nombre : g?.nombre;
+      })
+      .filter(Boolean)
+      .join(" · ") || null;
 
   return (
     <div className="max-w-5xl">

@@ -8,17 +8,34 @@ function clean(v: FormDataEntryValue | null): string | null {
   return s === "" ? null : s;
 }
 
+function groupIds(formData: FormData): string[] {
+  return formData
+    .getAll("group_ids")
+    .map((v) => String(v))
+    .filter(Boolean);
+}
+
 export async function createStudent(formData: FormData) {
   const supabase = await createClient();
   const nombre = String(formData.get("nombre") ?? "").trim();
   if (!nombre) return;
-  await supabase.from("students").insert({
-    nombre,
-    tutor: clean(formData.get("tutor")),
-    telefono: clean(formData.get("telefono")),
-    group_id: clean(formData.get("group_id")),
-    notas: clean(formData.get("notas")),
-  });
+  const { data: student } = await supabase
+    .from("students")
+    .insert({
+      nombre,
+      tutor: clean(formData.get("tutor")),
+      telefono: clean(formData.get("telefono")),
+      notas: clean(formData.get("notas")),
+    })
+    .select("id")
+    .single();
+
+  const ids = groupIds(formData);
+  if (student && ids.length > 0) {
+    await supabase
+      .from("student_groups")
+      .insert(ids.map((group_id) => ({ student_id: student.id, group_id })));
+  }
   revalidatePath("/admin/alumnas");
 }
 
@@ -33,11 +50,19 @@ export async function updateStudent(formData: FormData) {
       nombre,
       tutor: clean(formData.get("tutor")),
       telefono: clean(formData.get("telefono")),
-      group_id: clean(formData.get("group_id")),
       notas: clean(formData.get("notas")),
       activa: formData.get("activa") === "on",
     })
     .eq("id", id);
+
+  // Reemplaza la inscripción de clases con la nueva selección.
+  const ids = groupIds(formData);
+  await supabase.from("student_groups").delete().eq("student_id", id);
+  if (ids.length > 0) {
+    await supabase
+      .from("student_groups")
+      .insert(ids.map((group_id) => ({ student_id: id, group_id })));
+  }
   revalidatePath("/admin/alumnas");
 }
 
