@@ -8,19 +8,55 @@ const WA_LINK = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(
   "¡Hola! Quiero información de las clases de MoonDance Studio 🌙"
 )}`;
 
+import { sendInvitation } from "./invitar-action";
+
 export const revalidate = 300; // refresca eventos cada 5 min
 
-export default async function Home() {
+const DEMO_FOTOS = [
+  "/galeria/g1.jpg",
+  "/galeria/g2.jpg",
+  "/galeria/g3.jpg",
+  "/galeria/g4.jpg",
+  "/galeria/g5.jpg",
+  "/galeria/g6.jpg",
+];
+
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ invitacion?: string }>;
+}) {
+  const { invitacion } = await searchParams;
   const supabase = await createClient();
   const today = new Date().toISOString().slice(0, 10);
-  const { data: events } = await supabase
-    .from("events")
-    .select("titulo, descripcion, precio, fecha, slug")
-    .eq("activo", true)
-    .or(`fecha.gte.${today},fecha.is.null`)
-    .order("fecha", { ascending: true, nullsFirst: false })
-    .limit(3);
+  const [{ data: events }, { data: fotos }, { data: logros }] =
+    await Promise.all([
+      supabase
+        .from("events")
+        .select("titulo, descripcion, precio, fecha, slug")
+        .eq("activo", true)
+        .or(`fecha.gte.${today},fecha.is.null`)
+        .order("fecha", { ascending: true, nullsFirst: false })
+        .limit(3),
+      supabase
+        .from("gallery_photos")
+        .select("url, titulo")
+        .order("created_at", { ascending: false })
+        .limit(9),
+      supabase
+        .from("achievements")
+        .select("titulo, descripcion, anio")
+        .eq("activo", true)
+        .order("created_at", { ascending: false })
+        .limit(6),
+    ]);
   const proximos = events ?? [];
+  const fotosReales = fotos ?? [];
+  const usaDemo = fotosReales.length === 0;
+  const galeria = usaDemo
+    ? DEMO_FOTOS.map((src) => ({ url: src, titulo: null as string | null }))
+    : fotosReales;
+  const reconocimientos = logros ?? [];
 
   return (
     <main className="min-h-screen bg-black text-white">
@@ -208,31 +244,126 @@ export default async function Home() {
         </h2>
         <p className="text-gray-400 text-center mb-10 text-sm">
           Momentos que brillan. ✨{" "}
-          <span className="text-gray-600">(fotos de demostración)</span>
+          {usaDemo && (
+            <span className="text-gray-600">(fotos de demostración)</span>
+          )}
         </p>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-          {[
-            "/galeria/g1.jpg",
-            "/galeria/g2.jpg",
-            "/galeria/g3.jpg",
-            "/galeria/g4.jpg",
-            "/galeria/g5.jpg",
-            "/galeria/g6.jpg",
-          ].map((src, i) => (
+          {galeria.map((f, i) => (
             <div
-              key={src}
+              key={f.url}
               className="relative aspect-square rounded-2xl overflow-hidden border border-zinc-800 hover:border-fuchsia-500/60 transition group"
             >
               <Image
-                src={src}
-                alt={`Galería MoonDance ${i + 1}`}
+                src={f.url}
+                alt={f.titulo ?? `Galería MoonDance ${i + 1}`}
                 fill
                 sizes="(max-width: 640px) 50vw, 33vw"
                 className="object-cover group-hover:scale-105 transition duration-300"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+              {f.titulo && (
+                <span className="absolute bottom-2 left-3 text-xs text-gray-200">
+                  {f.titulo}
+                </span>
+              )}
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Logros y reconocimientos */}
+      {reconocimientos.length > 0 && (
+        <section id="logros" className="px-6 py-20 max-w-5xl mx-auto">
+          <h2 className="text-3xl font-bold mb-2 text-center">
+            Logros y <span className="text-amber-400">reconocimientos</span>
+          </h2>
+          <p className="text-gray-400 text-center mb-10 text-sm">
+            El esfuerzo de nuestras alumnas brilla en el escenario. 🏆
+          </p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {reconocimientos.map((l) => (
+              <div
+                key={l.titulo}
+                className="rounded-2xl border border-amber-400/30 bg-zinc-950 p-6 shadow-[0_0_18px_rgba(251,191,36,0.12)]"
+              >
+                <div className="text-3xl mb-3">🏆</div>
+                <h3 className="font-bold">
+                  {l.titulo}
+                  {l.anio && (
+                    <span className="ml-2 text-xs text-amber-400">{l.anio}</span>
+                  )}
+                </h3>
+                {l.descripcion && (
+                  <p className="mt-2 text-sm text-gray-400">{l.descripcion}</p>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Invítanos a tu evento */}
+      <section
+        id="invitar"
+        className="px-6 py-20 bg-zinc-950/60 border-y border-zinc-900"
+      >
+        <div className="max-w-xl mx-auto text-center">
+          <h2 className="text-3xl font-bold">
+            ¿Quieres a MoonDance en{" "}
+            <span className="text-fuchsia-500">tu evento</span>?
+          </h2>
+          <p className="mt-3 text-gray-400 text-sm">
+            Llevamos presentaciones y exhibiciones a festivales, escuelas y
+            eventos. Cuéntanos y te contactamos. 💌
+          </p>
+
+          {invitacion === "ok" && (
+            <p className="mt-6 rounded-lg bg-green-500/10 border border-green-500/40 px-4 py-3 text-sm text-green-400">
+              ¡Gracias! Recibimos tu invitación y te contactaremos pronto. 🌙
+            </p>
+          )}
+          {invitacion === "error" && (
+            <p className="mt-6 rounded-lg bg-red-500/10 border border-red-500/40 px-4 py-3 text-sm text-red-400">
+              No pudimos enviar tu mensaje. Revisa tus datos o escríbenos por
+              WhatsApp.
+            </p>
+          )}
+
+          <form
+            action={sendInvitation}
+            className="mt-8 grid gap-3 text-left rounded-2xl border border-zinc-800 bg-zinc-950 p-6"
+          >
+            <input
+              type="text"
+              name="web"
+              tabIndex={-1}
+              autoComplete="off"
+              className="hidden"
+              aria-hidden="true"
+            />
+            <input
+              name="nombre"
+              required
+              placeholder="Tu nombre *"
+              className="rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2.5 text-sm"
+            />
+            <input
+              name="contacto"
+              required
+              placeholder="Tu teléfono o correo *"
+              className="rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2.5 text-sm"
+            />
+            <textarea
+              name="mensaje"
+              rows={3}
+              placeholder="Cuéntanos del evento: fecha, lugar, tipo de presentación…"
+              className="rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2.5 text-sm"
+            />
+            <button className="rounded-xl bg-fuchsia-600 px-6 py-3 font-semibold shadow-[0_0_20px_rgba(217,70,239,0.4)] hover:bg-fuchsia-500 transition">
+              Enviar invitación ✨
+            </button>
+          </form>
         </div>
       </section>
 

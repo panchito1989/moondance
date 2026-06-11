@@ -10,6 +10,9 @@ const NAV = [
   { href: "/admin/grupos", label: "Grupos", icon: "👯" },
   { href: "/admin/conceptos", label: "Conceptos", icon: "💲" },
   { href: "/admin/eventos", label: "Eventos", icon: "🎉" },
+  { href: "/admin/galeria", label: "Galería", icon: "📸" },
+  { href: "/admin/logros", label: "Logros", icon: "🏆" },
+  { href: "/admin/invitaciones", label: "Invitaciones", icon: "💌" },
 ];
 
 export default async function AdminLayout({
