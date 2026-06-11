@@ -48,16 +48,24 @@ export default async function Home() {
       </nav>
 
       {/* Hero */}
-      <section className="relative px-6 pt-24 pb-28 text-center max-w-4xl mx-auto">
+      <section className="relative overflow-hidden">
+        <Image
+          src="/hero.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover opacity-40"
+        />
         <div
           aria-hidden
-          className="absolute inset-0 -z-0 opacity-30"
+          className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse 60% 50% at 50% 0%, rgba(217,70,239,0.35), transparent), radial-gradient(ellipse 50% 40% at 80% 60%, rgba(34,211,238,0.18), transparent)",
+              "linear-gradient(to bottom, rgba(0,0,0,0.55), rgba(0,0,0,0.35) 50%, #000 100%), radial-gradient(ellipse 60% 50% at 50% 0%, rgba(217,70,239,0.30), transparent), radial-gradient(ellipse 50% 40% at 80% 60%, rgba(34,211,238,0.15), transparent)",
           }}
         />
-        <div className="relative">
+        <div className="relative px-6 pt-28 pb-32 text-center max-w-4xl mx-auto">
           <p className="text-xs tracking-[0.4em] text-cyan-400 mb-6">
             ACADEMIA DE DANZA
           </p>
@@ -242,20 +250,75 @@ export default async function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="px-6 py-10 border-t border-zinc-900 text-center text-sm text-gray-600">
-        <p>
-          MOONDANCE <span className="text-fuchsia-500/70">STUDIO</span> 🌙 —
-          Academia de danza
-        </p>
-        <p className="mt-2">
-          <Link href="/login" className="hover:text-gray-400">
-            Acceso staff
-          </Link>
-        </p>
-        <p className="mt-4 text-[10px] text-gray-700">
-          Fotos: Tommy Wong (CC BY 2.0) · Andrey Trubin (CC BY 4.0) · Joe Mabel
-          (CC BY-SA 3.0) — Wikimedia Commons
-        </p>
+      <footer className="border-t border-zinc-900 bg-zinc-950">
+        <div className="max-w-5xl mx-auto px-6 py-14 grid sm:grid-cols-3 gap-10">
+          <div>
+            <p className="font-bold tracking-wide">
+              MOONDANCE <span className="text-fuchsia-500">STUDIO</span> 🌙
+            </p>
+            <p className="mt-3 text-sm text-gray-400">
+              Academia de danza para niñas y jóvenes. Técnica, confianza y
+              escenario.
+            </p>
+            <p className="mt-4 text-sm text-gray-500">
+              ✨ Baby Ballet · Ballet · K-Pop · Jazz
+            </p>
+          </div>
+          <div>
+            <p className="text-sm font-semibold text-gray-300 mb-3 tracking-wider">
+              EXPLORA
+            </p>
+            <ul className="space-y-2 text-sm text-gray-400">
+              <li>
+                <a href="#clases" className="hover:text-fuchsia-400">
+                  Clases
+                </a>
+              </li>
+              <li>
+                <a href="#eventos" className="hover:text-fuchsia-400">
+                  Eventos
+                </a>
+              </li>
+              <li>
+                <a href="#contacto" className="hover:text-fuchsia-400">
+                  Contacto
+                </a>
+              </li>
+              <li>
+                <Link href="/login" className="hover:text-fuchsia-400">
+                  Acceso staff
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <p className="text-sm font-semibold text-gray-300 mb-3 tracking-wider">
+              CONTACTO
+            </p>
+            <a
+              href={WA_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block rounded-lg bg-green-600/90 px-4 py-2 text-sm font-medium hover:bg-green-500"
+            >
+              💬 WhatsApp
+            </a>
+            <p className="mt-4 text-sm text-gray-500">
+              Pregunta por horarios y tu clase muestra. 💫
+            </p>
+          </div>
+        </div>
+        <div className="border-t border-zinc-900">
+          <div className="max-w-5xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-600">
+            <p>
+              © {new Date().getFullYear()} MoonDance Studio · Hecho con 💜
+            </p>
+            <p className="text-[10px] text-gray-700">
+              Fotos: Lambtron, Tommy Wong, Andrey Trubin, Joe Mabel (CC) —
+              Wikimedia Commons
+            </p>
+          </div>
+        </div>
       </footer>
     </main>
   );
