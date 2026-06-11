@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { signOut } from "./actions";
 
 export default async function AdminLayout({
@@ -26,7 +27,19 @@ export default async function AdminLayout({
   return (
     <div className="min-h-screen flex flex-col">
       <header className="flex items-center justify-between border-b border-gray-200 px-6 py-3">
-        <span className="font-bold">MoonDance Studio 🌙</span>
+        <div className="flex items-center gap-6">
+          <Link href="/admin" className="font-bold">
+            MoonDance Studio 🌙
+          </Link>
+          <nav className="flex gap-4 text-sm text-gray-600">
+            <Link href="/admin/alumnas" className="hover:text-black">
+              Alumnas
+            </Link>
+            <Link href="/admin/grupos" className="hover:text-black">
+              Grupos
+            </Link>
+          </nav>
+        </div>
         <div className="flex items-center gap-4 text-sm">
           <span className="text-gray-600">
             {nombre} · <span className="capitalize">{rol}</span>
