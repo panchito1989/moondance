@@ -9,6 +9,7 @@ const WA_LINK = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(
 )}`;
 
 import { sendInvitation } from "./invitar-action";
+import GaleriaLightbox from "./galeria-lightbox";
 
 export const revalidate = 300; // refresca eventos cada 5 min
 
@@ -248,28 +249,7 @@ export default async function Home({
             <span className="text-gray-600">(fotos de demostración)</span>
           )}
         </p>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-          {galeria.map((f, i) => (
-            <div
-              key={f.url}
-              className="relative aspect-square rounded-2xl overflow-hidden border border-zinc-800 hover:border-fuchsia-500/60 transition group"
-            >
-              <Image
-                src={f.url}
-                alt={f.titulo ?? `Galería MoonDance ${i + 1}`}
-                fill
-                sizes="(max-width: 640px) 50vw, 33vw"
-                className="object-cover group-hover:scale-105 transition duration-300"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-              {f.titulo && (
-                <span className="absolute bottom-2 left-3 text-xs text-gray-200">
-                  {f.titulo}
-                </span>
-              )}
-            </div>
-          ))}
-        </div>
+        <GaleriaLightbox fotos={galeria} />
       </section>
 
       {/* Logros y reconocimientos */}
