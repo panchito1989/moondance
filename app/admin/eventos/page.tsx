@@ -22,25 +22,25 @@ export default async function EventosPage() {
   return (
     <div className="max-w-5xl">
       <h1 className="text-2xl font-bold mb-1">Eventos</h1>
-      <p className="text-gray-500 mb-6">
+      <p className="text-gray-400 mb-6">
         Crea un evento y compártelo por WhatsApp con el flyer.
       </p>
 
       {esDuena && (
         <form
           action={createEvent}
-          className="grid sm:grid-cols-2 gap-2 mb-6 p-5 rounded-xl border border-gray-200 bg-white shadow-sm"
+          className="grid sm:grid-cols-2 gap-2 mb-6 p-5 rounded-xl border border-zinc-800 bg-zinc-900"
         >
           <input
             name="titulo"
             required
             placeholder="Título del evento *"
-            className="rounded-lg border border-gray-300 px-3 py-2 sm:col-span-2"
+            className="rounded-lg border border-zinc-700 px-3 py-2 sm:col-span-2"
           />
           <input
             name="descripcion"
             placeholder="Descripción"
-            className="rounded-lg border border-gray-300 px-3 py-2 sm:col-span-2"
+            className="rounded-lg border border-zinc-700 px-3 py-2 sm:col-span-2"
           />
           <label className="flex flex-col gap-1 text-sm">
             Precio
@@ -50,7 +50,7 @@ export default async function EventosPage() {
               step="0.01"
               min="0"
               defaultValue="0"
-              className="rounded-lg border border-gray-300 px-3 py-2"
+              className="rounded-lg border border-zinc-700 px-3 py-2"
             />
           </label>
           <label className="flex flex-col gap-1 text-sm">
@@ -58,10 +58,10 @@ export default async function EventosPage() {
             <input
               name="fecha"
               type="date"
-              className="rounded-lg border border-gray-300 px-3 py-2"
+              className="rounded-lg border border-zinc-700 px-3 py-2"
             />
           </label>
-          <button className="rounded-lg bg-black px-4 py-2 text-white hover:opacity-90 sm:col-span-2">
+          <button className="rounded-lg bg-fuchsia-600 px-4 py-2 text-white hover:opacity-90 sm:col-span-2">
             Crear evento
           </button>
         </form>
@@ -83,7 +83,7 @@ export default async function EventosPage() {
               `\nMás info: ${link}`
           );
           return (
-            <div key={e.id} className="p-5 rounded-xl border border-gray-200 bg-white">
+            <div key={e.id} className="p-5 rounded-xl border border-zinc-800 bg-zinc-900">
               <div className="flex items-start justify-between gap-3 flex-wrap">
                 <div>
                   <h3 className="font-bold">
@@ -92,14 +92,14 @@ export default async function EventosPage() {
                       <span className="text-xs text-gray-400">(inactivo)</span>
                     )}
                   </h3>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-gray-400">
                     {e.fecha ? `📅 ${e.fecha} · ` : ""}
                     {Number(e.precio) > 0
                       ? `💲 ${formatMXN(Number(e.precio))}`
                       : "Gratis"}
                   </p>
                   {e.descripcion && (
-                    <p className="text-sm text-gray-600 mt-1">{e.descripcion}</p>
+                    <p className="text-sm text-gray-300 mt-1">{e.descripcion}</p>
                   )}
                 </div>
                 <div className="flex gap-2 flex-wrap">
@@ -107,7 +107,7 @@ export default async function EventosPage() {
                     href={`https://wa.me/?text=${msg}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rounded-lg bg-green-600 px-3 py-1.5 text-sm text-white hover:bg-green-500"
+                    className="rounded-lg bg-green-600 px-3 py-1.5 text-sm text-white hover:bg-green-500/100"
                   >
                     Compartir por WhatsApp
                   </a>
@@ -115,7 +115,7 @@ export default async function EventosPage() {
                     href={link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm hover:bg-gray-50"
+                    className="rounded-lg border border-zinc-700 px-3 py-1.5 text-sm hover:bg-zinc-800"
                   >
                     Ver página
                   </a>
@@ -124,7 +124,7 @@ export default async function EventosPage() {
 
               {esDuena && (
                 <details className="mt-3">
-                  <summary className="text-xs text-gray-500 cursor-pointer">
+                  <summary className="text-xs text-gray-400 cursor-pointer">
                     Editar / eliminar
                   </summary>
                   <div className="flex flex-wrap items-end gap-2 mt-2">
@@ -137,13 +137,13 @@ export default async function EventosPage() {
                         name="titulo"
                         defaultValue={e.titulo}
                         required
-                        className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm sm:col-span-2"
+                        className="rounded-lg border border-zinc-700 px-3 py-1.5 text-sm sm:col-span-2"
                       />
                       <input
                         name="descripcion"
                         defaultValue={e.descripcion ?? ""}
                         placeholder="Descripción"
-                        className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm sm:col-span-2"
+                        className="rounded-lg border border-zinc-700 px-3 py-1.5 text-sm sm:col-span-2"
                       />
                       <input
                         name="precio"
@@ -151,15 +151,15 @@ export default async function EventosPage() {
                         step="0.01"
                         min="0"
                         defaultValue={String(e.precio)}
-                        className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm"
+                        className="rounded-lg border border-zinc-700 px-3 py-1.5 text-sm"
                       />
                       <input
                         name="fecha"
                         type="date"
                         defaultValue={e.fecha ?? ""}
-                        className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm"
+                        className="rounded-lg border border-zinc-700 px-3 py-1.5 text-sm"
                       />
-                      <label className="flex items-center gap-1 text-xs text-gray-600">
+                      <label className="flex items-center gap-1 text-xs text-gray-300">
                         <input
                           type="checkbox"
                           name="activo"
@@ -167,13 +167,13 @@ export default async function EventosPage() {
                         />{" "}
                         Activo
                       </label>
-                      <button className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm hover:bg-gray-50">
+                      <button className="rounded-lg border border-zinc-700 px-3 py-1.5 text-sm hover:bg-zinc-800">
                         Guardar
                       </button>
                     </form>
                     <form action={deleteEvent}>
                       <input type="hidden" name="id" value={e.id} />
-                      <button className="rounded-lg border border-red-200 text-red-600 px-3 py-1.5 text-sm hover:bg-red-50">
+                      <button className="rounded-lg border border-red-500/40 text-red-400 px-3 py-1.5 text-sm hover:bg-red-500/10">
                         Eliminar
                       </button>
                     </form>

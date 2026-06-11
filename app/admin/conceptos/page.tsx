@@ -23,7 +23,7 @@ export default async function ConceptosPage() {
   return (
     <div className="max-w-5xl">
       <h1 className="text-2xl font-bold mb-1">Conceptos de pago</h1>
-      <p className="text-gray-500 mb-6">
+      <p className="text-gray-400 mb-6">
         {esDuena
           ? "Crea, edita o elimina conceptos y sus precios."
           : "Lista de conceptos (solo la dueña puede editarlos)."}
@@ -32,7 +32,7 @@ export default async function ConceptosPage() {
       {esDuena && (
         <form
           action={createConcept}
-          className="flex flex-wrap gap-2 items-end mb-6 p-5 rounded-xl border border-gray-200 bg-white shadow-sm"
+          className="flex flex-wrap gap-2 items-end mb-6 p-5 rounded-xl border border-zinc-800 bg-zinc-900"
         >
           <label className="flex flex-col gap-1 text-sm">
             Nombre
@@ -40,7 +40,7 @@ export default async function ConceptosPage() {
               name="nombre"
               required
               placeholder="Ej. Examen"
-              className="rounded-lg border border-gray-300 px-3 py-2"
+              className="rounded-lg border border-zinc-700 px-3 py-2"
             />
           </label>
           <label className="flex flex-col gap-1 text-sm">
@@ -51,7 +51,7 @@ export default async function ConceptosPage() {
               step="0.01"
               min="0"
               defaultValue="0"
-              className="rounded-lg border border-gray-300 px-3 py-2 w-28"
+              className="rounded-lg border border-zinc-700 px-3 py-2 w-28"
             />
           </label>
           <label className="flex flex-col gap-1 text-sm">
@@ -59,7 +59,7 @@ export default async function ConceptosPage() {
             <select
               name="tipo"
               defaultValue="otro"
-              className="rounded-lg border border-gray-300 px-3 py-2 bg-white"
+              className="rounded-lg border border-zinc-700 px-3 py-2 bg-zinc-900"
             >
               {TIPOS.map((t) => (
                 <option key={t} value={t}>
@@ -68,7 +68,7 @@ export default async function ConceptosPage() {
               ))}
             </select>
           </label>
-          <button className="rounded-lg bg-black px-4 py-2 text-white hover:opacity-90">
+          <button className="rounded-lg bg-fuchsia-600 px-4 py-2 text-white hover:opacity-90">
             Agregar concepto
           </button>
         </form>
@@ -79,23 +79,23 @@ export default async function ConceptosPage() {
           esDuena ? (
             <div
               key={c.id}
-              className="flex flex-wrap items-end gap-2 p-4 rounded-xl border border-gray-200 bg-white"
+              className="flex flex-wrap items-end gap-2 p-4 rounded-xl border border-zinc-800 bg-zinc-900"
             >
               <form
                 action={updateConcept}
                 className="flex flex-wrap items-end gap-2 flex-1"
               >
                 <input type="hidden" name="id" value={c.id} />
-                <label className="flex flex-col gap-1 text-xs text-gray-500">
+                <label className="flex flex-col gap-1 text-xs text-gray-400">
                   Nombre
                   <input
                     name="nombre"
                     defaultValue={c.nombre}
                     required
-                    className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm"
+                    className="rounded-lg border border-zinc-700 px-3 py-1.5 text-sm"
                   />
                 </label>
-                <label className="flex flex-col gap-1 text-xs text-gray-500">
+                <label className="flex flex-col gap-1 text-xs text-gray-400">
                   Precio
                   <input
                     name="precio"
@@ -103,15 +103,15 @@ export default async function ConceptosPage() {
                     step="0.01"
                     min="0"
                     defaultValue={String(c.precio)}
-                    className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm w-24"
+                    className="rounded-lg border border-zinc-700 px-3 py-1.5 text-sm w-24"
                   />
                 </label>
-                <label className="flex flex-col gap-1 text-xs text-gray-500">
+                <label className="flex flex-col gap-1 text-xs text-gray-400">
                   Tipo
                   <select
                     name="tipo"
                     defaultValue={c.tipo}
-                    className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm bg-white"
+                    className="rounded-lg border border-zinc-700 px-3 py-1.5 text-sm bg-zinc-900"
                   >
                     {TIPOS.map((t) => (
                       <option key={t} value={t}>
@@ -120,7 +120,7 @@ export default async function ConceptosPage() {
                     ))}
                   </select>
                 </label>
-                <label className="flex items-center gap-1 text-xs text-gray-600">
+                <label className="flex items-center gap-1 text-xs text-gray-300">
                   <input
                     type="checkbox"
                     name="activo"
@@ -128,13 +128,13 @@ export default async function ConceptosPage() {
                   />{" "}
                   Activo
                 </label>
-                <button className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm hover:bg-gray-50">
+                <button className="rounded-lg border border-zinc-700 px-3 py-1.5 text-sm hover:bg-zinc-800">
                   Guardar
                 </button>
               </form>
               <form action={deleteConcept}>
                 <input type="hidden" name="id" value={c.id} />
-                <button className="rounded-lg border border-red-200 text-red-600 px-3 py-1.5 text-sm hover:bg-red-50">
+                <button className="rounded-lg border border-red-500/40 text-red-400 px-3 py-1.5 text-sm hover:bg-red-500/10">
                   Eliminar
                 </button>
               </form>
@@ -142,7 +142,7 @@ export default async function ConceptosPage() {
           ) : (
             <div
               key={c.id}
-              className="flex items-center justify-between p-4 rounded-xl border border-gray-200 bg-white"
+              className="flex items-center justify-between p-4 rounded-xl border border-zinc-800 bg-zinc-900"
             >
               <span>
                 {c.nombre}{" "}

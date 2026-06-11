@@ -20,7 +20,7 @@ function GroupChecks({
   return (
     <div className={`flex flex-wrap gap-x-4 gap-y-1 ${small ? "text-xs" : "text-sm"}`}>
       {grupos.map((g) => (
-        <label key={g.id} className="flex items-center gap-1.5 text-gray-700">
+        <label key={g.id} className="flex items-center gap-1.5 text-gray-300">
           <input
             type="checkbox"
             name="group_ids"
@@ -59,40 +59,40 @@ export default async function AlumnasPage() {
   return (
     <div className="max-w-6xl">
       <h1 className="text-2xl font-bold mb-1">Alumnas</h1>
-      <p className="text-gray-500 mb-6">
+      <p className="text-gray-400 mb-6">
         Alta y edición. Una alumna puede estar en varias clases. ☑
       </p>
 
       <form
         action={createStudent}
-        className="grid sm:grid-cols-2 gap-3 mb-6 p-5 rounded-xl border border-gray-200 bg-white shadow-sm"
+        className="grid sm:grid-cols-2 gap-3 mb-6 p-5 rounded-xl border border-zinc-800 bg-zinc-900"
       >
         <input
           name="nombre"
           required
           placeholder="Nombre de la alumna *"
-          className="rounded-lg border border-gray-300 px-3 py-2"
+          className="rounded-lg border border-zinc-700 px-3 py-2"
         />
         <input
           name="tutor"
           placeholder="Tutor / mamá / papá"
-          className="rounded-lg border border-gray-300 px-3 py-2"
+          className="rounded-lg border border-zinc-700 px-3 py-2"
         />
         <input
           name="telefono"
           placeholder="Teléfono"
-          className="rounded-lg border border-gray-300 px-3 py-2"
+          className="rounded-lg border border-zinc-700 px-3 py-2"
         />
         <input
           name="notas"
           placeholder="Notas"
-          className="rounded-lg border border-gray-300 px-3 py-2"
+          className="rounded-lg border border-zinc-700 px-3 py-2"
         />
         <div className="sm:col-span-2">
           <p className="text-sm font-medium mb-1">Clases:</p>
           <GroupChecks grupos={grupos} />
         </div>
-        <button className="rounded-lg bg-black px-4 py-2 text-white hover:opacity-90 sm:col-span-2">
+        <button className="rounded-lg bg-fuchsia-600 px-4 py-2 text-white hover:opacity-90 sm:col-span-2">
           Agregar alumna
         </button>
       </form>
@@ -104,42 +104,42 @@ export default async function AlumnasPage() {
           </p>
         )}
         {lista.map((s) => (
-          <div key={s.id} className="p-4 rounded-xl border border-gray-200 bg-white">
+          <div key={s.id} className="p-4 rounded-xl border border-zinc-800 bg-zinc-900">
             <form action={updateStudent} className="grid sm:grid-cols-2 gap-2">
               <input type="hidden" name="id" value={s.id} />
               <input
                 name="nombre"
                 defaultValue={s.nombre}
                 required
-                className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm"
+                className="rounded-lg border border-zinc-700 px-3 py-1.5 text-sm"
               />
               <input
                 name="tutor"
                 defaultValue={s.tutor ?? ""}
                 placeholder="Tutor"
-                className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm"
+                className="rounded-lg border border-zinc-700 px-3 py-1.5 text-sm"
               />
               <input
                 name="telefono"
                 defaultValue={s.telefono ?? ""}
                 placeholder="Teléfono"
-                className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm"
+                className="rounded-lg border border-zinc-700 px-3 py-1.5 text-sm"
               />
               <input
                 name="notas"
                 defaultValue={s.notas ?? ""}
                 placeholder="Notas"
-                className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm"
+                className="rounded-lg border border-zinc-700 px-3 py-1.5 text-sm"
               />
               <div className="sm:col-span-2">
                 <GroupChecks grupos={grupos} checked={s.groupSet} small />
               </div>
-              <label className="flex items-center gap-2 text-xs text-gray-600">
+              <label className="flex items-center gap-2 text-xs text-gray-300">
                 <input type="checkbox" name="activa" defaultChecked={s.activa} />{" "}
                 Activa
               </label>
               <div className="flex gap-2 justify-end items-center">
-                <button className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm hover:bg-gray-50">
+                <button className="rounded-lg border border-zinc-700 px-3 py-1.5 text-sm hover:bg-zinc-800">
                   Guardar
                 </button>
               </div>
@@ -147,13 +147,13 @@ export default async function AlumnasPage() {
             <div className="flex justify-between items-center mt-2">
               <Link
                 href={`/admin/alumnas/${s.id}`}
-                className="text-sm text-blue-600 hover:underline"
+                className="text-sm text-cyan-400 hover:underline"
               >
                 Estado de cuenta →
               </Link>
               <form action={deleteStudent}>
                 <input type="hidden" name="id" value={s.id} />
-                <button className="rounded-lg border border-red-200 text-red-600 px-3 py-1.5 text-sm hover:bg-red-50">
+                <button className="rounded-lg border border-red-500/40 text-red-400 px-3 py-1.5 text-sm hover:bg-red-500/10">
                   Eliminar
                 </button>
               </form>

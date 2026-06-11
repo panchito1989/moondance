@@ -66,25 +66,25 @@ export default async function EstadoCuentaPage({
 
   return (
     <div className="max-w-5xl">
-      <Link href="/admin/alumnas" className="text-sm text-gray-500 hover:text-black">
+      <Link href="/admin/alumnas" className="text-sm text-gray-400 hover:text-white">
         ← Alumnas
       </Link>
       <h1 className="text-2xl font-bold mt-1">{student.nombre}</h1>
-      <p className="text-gray-500 mb-4">
+      <p className="text-gray-400 mb-4">
         {grupoNombre ?? "Sin grupo"}
         {student.tutor ? ` · Tutor: ${student.tutor}` : ""}
         {student.telefono ? ` · Tel: ${student.telefono}` : ""}
         {!student.activa && " · (inactiva)"}
       </p>
 
-      <div className="rounded-lg bg-white border border-gray-200 px-4 py-2 inline-block mb-6 text-sm">
+      <div className="rounded-lg bg-zinc-900 border border-zinc-800 px-4 py-2 inline-block mb-6 text-sm">
         Total pagado en {anio}: <b>{formatMXN(totalAnio)}</b>
       </div>
 
       <h2 className="font-semibold mb-2">Registrar pago</h2>
       <form
         action={registerPayment}
-        className="grid sm:grid-cols-2 gap-2 mb-6 p-5 rounded-xl border border-gray-200 bg-white shadow-sm"
+        className="grid sm:grid-cols-2 gap-2 mb-6 p-5 rounded-xl border border-zinc-800 bg-zinc-900"
       >
         <input type="hidden" name="student_id" value={student.id} />
         <label className="flex flex-col gap-1 text-sm">
@@ -92,7 +92,7 @@ export default async function EstadoCuentaPage({
           <select
             name="concept_id"
             required
-            className="rounded-lg border border-gray-300 px-3 py-2 bg-white"
+            className="rounded-lg border border-zinc-700 px-3 py-2 bg-zinc-900"
           >
             {conceptos.map((c) => (
               <option key={c.id} value={c.id}>
@@ -110,7 +110,7 @@ export default async function EstadoCuentaPage({
             min="0"
             required
             placeholder="0.00"
-            className="rounded-lg border border-gray-300 px-3 py-2"
+            className="rounded-lg border border-zinc-700 px-3 py-2"
           />
         </label>
         <label className="flex flex-col gap-1 text-sm">
@@ -119,7 +119,7 @@ export default async function EstadoCuentaPage({
             name="fecha"
             type="date"
             defaultValue={new Date().toISOString().slice(0, 10)}
-            className="rounded-lg border border-gray-300 px-3 py-2"
+            className="rounded-lg border border-zinc-700 px-3 py-2"
           />
         </label>
         <label className="flex flex-col gap-1 text-sm">
@@ -127,7 +127,7 @@ export default async function EstadoCuentaPage({
           <select
             name="metodo"
             defaultValue="efectivo"
-            className="rounded-lg border border-gray-300 px-3 py-2 bg-white"
+            className="rounded-lg border border-zinc-700 px-3 py-2 bg-zinc-900"
           >
             {METODOS.map((m) => (
               <option key={m} value={m}>
@@ -139,9 +139,9 @@ export default async function EstadoCuentaPage({
         <input
           name="nota"
           placeholder="Nota (opcional)"
-          className="rounded-lg border border-gray-300 px-3 py-2 sm:col-span-2"
+          className="rounded-lg border border-zinc-700 px-3 py-2 sm:col-span-2"
         />
-        <button className="rounded-lg bg-black px-4 py-2 text-white hover:opacity-90 sm:col-span-2">
+        <button className="rounded-lg bg-fuchsia-600 px-4 py-2 text-white hover:opacity-90 sm:col-span-2">
           Registrar pago
         </button>
       </form>
@@ -158,11 +158,11 @@ export default async function EstadoCuentaPage({
           return (
             <div
               key={p.id}
-              className="flex items-center justify-between gap-3 p-4 rounded-xl border border-gray-200 bg-white text-sm"
+              className="flex items-center justify-between gap-3 p-4 rounded-xl border border-zinc-800 bg-zinc-900 text-sm"
             >
               <div>
                 <span className="font-medium">{concepto ?? "Concepto"}</span>{" "}
-                <span className="text-gray-500">
+                <span className="text-gray-400">
                   · {p.fecha} · {p.metodo}
                   {p.nota ? ` · ${p.nota}` : ""}
                 </span>
@@ -173,7 +173,7 @@ export default async function EstadoCuentaPage({
                   <form action={deletePayment}>
                     <input type="hidden" name="id" value={p.id} />
                     <input type="hidden" name="student_id" value={student.id} />
-                    <button className="rounded-lg border border-red-200 text-red-600 px-2 py-1 text-xs hover:bg-red-50">
+                    <button className="rounded-lg border border-red-500/40 text-red-400 px-2 py-1 text-xs hover:bg-red-500/10">
                       Borrar
                     </button>
                   </form>

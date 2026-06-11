@@ -69,7 +69,7 @@ export default async function CobroPage({
   return (
     <div className="max-w-5xl">
       <h1 className="text-2xl font-bold mb-1">Cobro &amp; Asistencia</h1>
-      <p className="text-gray-500 mb-4">
+      <p className="text-gray-400 mb-4">
         Cobra la clase y marca asistencia en un toque.
       </p>
 
@@ -80,7 +80,7 @@ export default async function CobroPage({
             type="date"
             name="fecha"
             defaultValue={fecha}
-            className="rounded-lg border border-gray-300 px-3 py-2"
+            className="rounded-lg border border-zinc-700 px-3 py-2"
           />
         </label>
         <label className="flex flex-col gap-1 text-sm">
@@ -88,7 +88,7 @@ export default async function CobroPage({
           <select
             name="grupo"
             defaultValue={grupo}
-            className="rounded-lg border border-gray-300 px-3 py-2 bg-white"
+            className="rounded-lg border border-zinc-700 px-3 py-2 bg-zinc-900"
           >
             <option value="">Todos</option>
             {grupos.map((g) => (
@@ -98,20 +98,20 @@ export default async function CobroPage({
             ))}
           </select>
         </label>
-        <button className="rounded-lg border border-gray-300 px-4 py-2 hover:bg-gray-50">
+        <button className="rounded-lg border border-zinc-700 px-4 py-2 hover:bg-zinc-800">
           Ver
         </button>
       </form>
 
       <div className="flex flex-wrap gap-3 mb-4 text-sm">
-        <div className="rounded-lg bg-white border border-gray-200 px-4 py-2">
+        <div className="rounded-lg bg-zinc-900 border border-zinc-800 px-4 py-2">
           Presentes: <b>{presentes}</b>/{lista.length}
         </div>
-        <div className="rounded-lg bg-white border border-gray-200 px-4 py-2">
+        <div className="rounded-lg bg-zinc-900 border border-zinc-800 px-4 py-2">
           Cobrado: <b>{formatMXN(totalCobrado)}</b>
         </div>
         {precioClase === 0 && (
-          <div className="rounded-lg bg-amber-50 border border-amber-200 text-amber-700 px-4 py-2">
+          <div className="rounded-lg bg-amber-500/10 border border-amber-500/40 text-amber-300 px-4 py-2">
             Define el precio de &quot;Clase&quot; en Conceptos.
           </div>
         )}
@@ -130,25 +130,25 @@ export default async function CobroPage({
           return (
             <div
               key={s.id}
-              className="flex items-center justify-between gap-3 p-4 rounded-xl border border-gray-200 bg-white"
+              className="flex items-center justify-between gap-3 p-4 rounded-xl border border-zinc-800 bg-zinc-900"
             >
               <div>
                 <div className="font-medium">{s.nombre}</div>
                 {s.groupNames && (
-                  <div className="text-xs text-gray-500">{s.groupNames}</div>
+                  <div className="text-xs text-gray-400">{s.groupNames}</div>
                 )}
               </div>
               <div className="flex items-center gap-2">
                 {present ? (
                   <>
-                    <span className="text-sm text-green-600">
+                    <span className="text-sm text-green-400">
                       ✓ Presente
                       {cobrado ? ` · 💲 ${formatMXN(precioClase)}` : ""}
                     </span>
                     <form action={undoDay}>
                       <input type="hidden" name="student_id" value={s.id} />
                       <input type="hidden" name="fecha" value={fecha} />
-                      <button className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm hover:bg-gray-50">
+                      <button className="rounded-lg border border-zinc-700 px-3 py-1.5 text-sm hover:bg-zinc-800">
                         Deshacer
                       </button>
                     </form>
@@ -158,14 +158,14 @@ export default async function CobroPage({
                     <form action={chargeAndAttend}>
                       <input type="hidden" name="student_id" value={s.id} />
                       <input type="hidden" name="fecha" value={fecha} />
-                      <button className="rounded-lg bg-black px-3 py-1.5 text-sm text-white hover:opacity-90">
+                      <button className="rounded-lg bg-fuchsia-600 px-3 py-1.5 text-sm text-white hover:opacity-90">
                         Cobrar {formatMXN(precioClase)} + Presente
                       </button>
                     </form>
                     <form action={attendOnly}>
                       <input type="hidden" name="student_id" value={s.id} />
                       <input type="hidden" name="fecha" value={fecha} />
-                      <button className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm hover:bg-gray-50">
+                      <button className="rounded-lg border border-zinc-700 px-3 py-1.5 text-sm hover:bg-zinc-800">
                         Solo presente
                       </button>
                     </form>

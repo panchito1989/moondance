@@ -8,18 +8,18 @@ export default async function LoginPage({
   const { error } = await searchParams;
 
   return (
-    <main className="min-h-screen flex items-center justify-center p-6 bg-gray-50">
+    <main className="min-h-screen flex items-center justify-center p-6 bg-black">
       <form
         action={login}
-        className="w-full max-w-sm rounded-2xl bg-white p-8 shadow-sm border border-gray-100 flex flex-col gap-4"
+        className="w-full max-w-sm rounded-2xl bg-zinc-900 p-8 shadow-sm border border-zinc-800 flex flex-col gap-4"
       >
         <div className="text-center">
           <h1 className="text-2xl font-bold">MoonDance Studio 🌙</h1>
-          <p className="text-sm text-gray-500">Acceso para staff</p>
+          <p className="text-sm text-gray-400">Acceso para staff</p>
         </div>
 
         {error && (
-          <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">
+          <p className="rounded-lg bg-red-500/10 px-3 py-2 text-sm text-red-400">
             {error}
           </p>
         )}
@@ -30,7 +30,7 @@ export default async function LoginPage({
             name="email"
             type="email"
             required
-            className="rounded-lg border border-gray-300 px-3 py-2"
+            className="rounded-lg border border-zinc-700 px-3 py-2"
           />
         </label>
 
@@ -40,13 +40,13 @@ export default async function LoginPage({
             name="password"
             type="password"
             required
-            className="rounded-lg border border-gray-300 px-3 py-2"
+            className="rounded-lg border border-zinc-700 px-3 py-2"
           />
         </label>
 
         <button
           type="submit"
-          className="mt-2 rounded-lg bg-black px-4 py-2.5 text-white hover:opacity-90"
+          className="mt-2 rounded-lg bg-fuchsia-600 px-4 py-2.5 text-white hover:opacity-90"
         >
           Entrar
         </button>

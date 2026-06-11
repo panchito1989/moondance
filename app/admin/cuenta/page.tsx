@@ -22,17 +22,17 @@ export default async function CuentaPage({
   return (
     <div className="max-w-lg">
       <h1 className="text-2xl font-bold mb-1">Mi cuenta</h1>
-      <p className="text-gray-500 mb-6">
+      <p className="text-gray-400 mb-6">
         {user?.email} · <span className="capitalize">{profile?.rol}</span>
       </p>
 
       {error && (
-        <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600 mb-4">
+        <p className="rounded-lg bg-red-500/10 px-3 py-2 text-sm text-red-400 mb-4">
           {error}
         </p>
       )}
       {ok && (
-        <p className="rounded-lg bg-green-50 px-3 py-2 text-sm text-green-700 mb-4">
+        <p className="rounded-lg bg-green-500/10 px-3 py-2 text-sm text-green-400 mb-4">
           {ok}
         </p>
       )}
@@ -40,15 +40,15 @@ export default async function CuentaPage({
       <h2 className="font-semibold mb-2">Nombre</h2>
       <form
         action={changeName}
-        className="flex gap-2 mb-6 p-4 rounded-xl border border-gray-200 bg-gray-50"
+        className="flex gap-2 mb-6 p-4 rounded-xl border border-zinc-800 bg-black"
       >
         <input
           name="nombre"
           defaultValue={profile?.nombre ?? ""}
           required
-          className="rounded-lg border border-gray-300 px-3 py-2 flex-1"
+          className="rounded-lg border border-zinc-700 px-3 py-2 flex-1"
         />
-        <button className="rounded-lg bg-black px-4 py-2 text-white hover:opacity-90">
+        <button className="rounded-lg bg-fuchsia-600 px-4 py-2 text-white hover:opacity-90">
           Guardar
         </button>
       </form>
@@ -56,7 +56,7 @@ export default async function CuentaPage({
       <h2 className="font-semibold mb-2">Cambiar contraseña</h2>
       <form
         action={changePassword}
-        className="flex flex-col gap-2 mb-6 p-4 rounded-xl border border-gray-200 bg-gray-50"
+        className="flex flex-col gap-2 mb-6 p-4 rounded-xl border border-zinc-800 bg-black"
       >
         <input
           name="password"
@@ -64,7 +64,7 @@ export default async function CuentaPage({
           required
           minLength={6}
           placeholder="Nueva contraseña"
-          className="rounded-lg border border-gray-300 px-3 py-2"
+          className="rounded-lg border border-zinc-700 px-3 py-2"
         />
         <input
           name="confirm"
@@ -72,9 +72,9 @@ export default async function CuentaPage({
           required
           minLength={6}
           placeholder="Confirmar contraseña"
-          className="rounded-lg border border-gray-300 px-3 py-2"
+          className="rounded-lg border border-zinc-700 px-3 py-2"
         />
-        <button className="rounded-lg bg-black px-4 py-2 text-white hover:opacity-90">
+        <button className="rounded-lg bg-fuchsia-600 px-4 py-2 text-white hover:opacity-90">
           Actualizar contraseña
         </button>
       </form>
@@ -82,19 +82,19 @@ export default async function CuentaPage({
       <h2 className="font-semibold mb-2">Cambiar correo</h2>
       <form
         action={changeEmail}
-        className="flex flex-col gap-2 p-4 rounded-xl border border-gray-200 bg-gray-50"
+        className="flex flex-col gap-2 p-4 rounded-xl border border-zinc-800 bg-black"
       >
         <input
           name="email"
           type="email"
           required
           placeholder="nuevo@correo.com"
-          className="rounded-lg border border-gray-300 px-3 py-2"
+          className="rounded-lg border border-zinc-700 px-3 py-2"
         />
-        <p className="text-xs text-gray-500">
+        <p className="text-xs text-gray-400">
           Se enviará un correo de confirmación; el cambio aplica al confirmarlo.
         </p>
-        <button className="rounded-lg bg-black px-4 py-2 text-white hover:opacity-90">
+        <button className="rounded-lg bg-fuchsia-600 px-4 py-2 text-white hover:opacity-90">
           Cambiar correo
         </button>
       </form>

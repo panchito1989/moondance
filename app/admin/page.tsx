@@ -88,7 +88,7 @@ export default async function AdminHome() {
       <h1 className="text-3xl font-bold">
         Bienvenida, {profile?.nombre ?? user.email} 👋
       </h1>
-      <p className="mt-1 text-gray-500">
+      <p className="mt-1 text-gray-400">
         {new Date().toLocaleDateString("es-MX", {
           weekday: "long",
           day: "numeric",
@@ -100,18 +100,18 @@ export default async function AdminHome() {
         {stats.map((s) => (
           <div
             key={s.label}
-            className="rounded-2xl bg-white border border-gray-200 p-6"
+            className="rounded-2xl bg-zinc-900 border border-zinc-800 p-6"
           >
             <div className="text-2xl">{s.icon}</div>
             <div className="mt-2 text-3xl font-bold">{s.value}</div>
-            <div className="text-sm text-gray-500">{s.label}</div>
+            <div className="text-sm text-gray-400">{s.label}</div>
           </div>
         ))}
       </div>
 
       <Link
         href="/admin/cobro"
-        className="mt-6 flex items-center justify-between rounded-2xl bg-black text-white p-7 hover:opacity-90 transition"
+        className="mt-6 flex items-center justify-between rounded-2xl bg-gradient-to-r from-fuchsia-600 to-purple-700 text-white p-7 shadow-[0_0_25px_rgba(217,70,239,0.35)] hover:from-fuchsia-500 hover:to-purple-600 transition"
       >
         <div>
           <div className="text-xl font-semibold">
@@ -129,11 +129,11 @@ export default async function AdminHome() {
           <Link
             key={m.href}
             href={m.href}
-            className="rounded-2xl bg-white border border-gray-200 p-6 hover:border-fuchsia-300 hover:shadow-sm transition"
+            className="rounded-2xl bg-zinc-900 border border-zinc-800 p-6 hover:border-fuchsia-500 hover:shadow-sm transition"
           >
             <div className="text-2xl">{m.icon}</div>
             <div className="mt-2 font-semibold">{m.t}</div>
-            <div className="text-sm text-gray-500 mt-1">{m.d}</div>
+            <div className="text-sm text-gray-400 mt-1">{m.d}</div>
           </Link>
         ))}
       </div>
