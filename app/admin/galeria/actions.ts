@@ -3,8 +3,9 @@
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import sharp from "sharp";
 
-const MAX_MB = 5;
+const MAX_MB = 7;
 
 export async function uploadPhoto(formData: FormData) {
   const supabase = await createClient();
@@ -22,12 +23,27 @@ export async function uploadPhoto(formData: FormData) {
     );
   }
 
-  const ext = (file.name.split(".").pop() || "jpg").toLowerCase();
-  const path = `${crypto.randomUUID()}.${ext}`;
+  // Compresión automática: máx 1600px por lado, WebP calidad 80.
+  // Una foto de celular de ~5MB queda en ~150-400KB sin pérdida visible en web.
+  let optimized: Buffer;
+  try {
+    const original = Buffer.from(await file.arrayBuffer());
+    optimized = await sharp(original)
+      .rotate() // respeta la orientación EXIF
+      .resize(1600, 1600, { fit: "inside", withoutEnlargement: true })
+      .webp({ quality: 80 })
+      .toBuffer();
+  } catch {
+    redirect(
+      "/admin/galeria?error=" +
+        encodeURIComponent("No se pudo procesar la imagen. ¿Es una foto válida?")
+    );
+  }
 
+  const path = `${crypto.randomUUID()}.webp`;
   const { error: upErr } = await supabase.storage
     .from("galeria")
-    .upload(path, file, { contentType: file.type });
+    .upload(path, optimized, { contentType: "image/webp" });
   if (upErr) {
     redirect("/admin/galeria?error=" + encodeURIComponent(upErr.message));
   }
@@ -39,6 +55,7 @@ export async function uploadPhoto(formData: FormData) {
   await supabase.from("gallery_photos").insert({ path, url: publicUrl, titulo });
   revalidatePath("/admin/galeria");
   revalidatePath("/");
+  revalidatePath("/galeria");
 }
 
 export async function deletePhoto(formData: FormData) {
@@ -50,4 +67,5 @@ export async function deletePhoto(formData: FormData) {
   await supabase.from("gallery_photos").delete().eq("id", id);
   revalidatePath("/admin/galeria");
   revalidatePath("/");
+  revalidatePath("/galeria");
 }

@@ -3,10 +3,7 @@ import Image from "next/image";
 import { createClient } from "@/lib/supabase/server";
 import { formatMXN } from "@/lib/money";
 
-const WHATSAPP = "5215500000000"; // TODO: número real del estudio
-const WA_LINK = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(
-  "¡Hola! Quiero información de las clases de MoonDance Studio 🌙"
-)}`;
+import { socialUrl } from "@/lib/social";
 
 import { sendInvitation } from "./invitar-action";
 import GaleriaLightbox from "./galeria-lightbox";
@@ -30,8 +27,12 @@ export default async function Home({
   const { invitacion } = await searchParams;
   const supabase = await createClient();
   const today = new Date().toISOString().slice(0, 10);
-  const [{ data: events }, { data: fotos, count: totalFotos }, { data: logros }] =
-    await Promise.all([
+  const [
+    { data: events },
+    { data: fotos, count: totalFotos },
+    { data: logros },
+    { data: settings },
+  ] = await Promise.all([
       supabase
         .from("events")
         .select("titulo, descripcion, precio, fecha, slug")
@@ -50,7 +51,28 @@ export default async function Home({
         .eq("activo", true)
         .order("created_at", { ascending: false })
         .limit(6),
+      supabase
+        .from("site_settings")
+        .select("whatsapp, tiktok, instagram, facebook")
+        .eq("id", 1)
+        .maybeSingle(),
     ]);
+
+  const WHATSAPP = settings?.whatsapp || "5215500000000";
+  const WA_LINK = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(
+    "¡Hola! Quiero información de las clases de MoonDance Studio 🌙"
+  )}`;
+  const redes = [
+    { nombre: "TikTok", url: socialUrl("tiktok", settings?.tiktok ?? null) },
+    {
+      nombre: "Instagram",
+      url: socialUrl("instagram", settings?.instagram ?? null),
+    },
+    {
+      nombre: "Facebook",
+      url: socialUrl("facebook", settings?.facebook ?? null),
+    },
+  ].filter((r): r is { nombre: string; url: string } => r.url !== null);
   const proximos = events ?? [];
   const fotosReales = fotos ?? [];
   const usaDemo = fotosReales.length === 0;
@@ -462,6 +484,21 @@ export default async function Home({
             >
               💬 WhatsApp
             </a>
+            {redes.length > 0 && (
+              <div className="mt-4 flex flex-wrap gap-2">
+                {redes.map((r) => (
+                  <a
+                    key={r.nombre}
+                    href={r.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded-full border border-zinc-700 px-4 py-1.5 text-xs text-gray-300 hover:border-fuchsia-500 hover:text-fuchsia-400 transition"
+                  >
+                    {r.nombre}
+                  </a>
+                ))}
+              </div>
+            )}
             <p className="mt-4 text-sm text-gray-500">
               Pregunta por horarios y tu clase muestra. 💫
             </p>

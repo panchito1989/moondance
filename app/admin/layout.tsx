@@ -13,6 +13,7 @@ const NAV = [
   { href: "/admin/galeria", label: "Galería", icon: "📸" },
   { href: "/admin/logros", label: "Logros", icon: "🏆" },
   { href: "/admin/invitaciones", label: "Invitaciones", icon: "💌" },
+  { href: "/admin/sitio", label: "Página pública", icon: "🌐" },
 ];
 
 export default async function AdminLayout({
