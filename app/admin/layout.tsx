@@ -47,6 +47,11 @@ export default async function AdminLayout({
             <Link href="/admin/eventos" className="hover:text-black">
               Eventos
             </Link>
+            {rol === "duena" && (
+              <Link href="/admin/reportes" className="hover:text-black">
+                Reportes
+              </Link>
+            )}
           </nav>
         </div>
         <div className="flex items-center gap-4 text-sm">
