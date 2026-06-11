@@ -32,11 +32,17 @@ export default async function AdminLayout({
             MoonDance Studio 🌙
           </Link>
           <nav className="flex gap-4 text-sm text-gray-600">
+            <Link href="/admin/cobro" className="hover:text-black">
+              Cobro
+            </Link>
             <Link href="/admin/alumnas" className="hover:text-black">
               Alumnas
             </Link>
             <Link href="/admin/grupos" className="hover:text-black">
               Grupos
+            </Link>
+            <Link href="/admin/conceptos" className="hover:text-black">
+              Conceptos
             </Link>
           </nav>
         </div>
